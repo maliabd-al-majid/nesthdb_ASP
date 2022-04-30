@@ -1,23 +1,31 @@
-# dpdb
-Solve dynamic programming problems on tree decompositions using databases
+# dpdb_ASP
 
-## Requirements
+Solve dynamic programming problems on tree decomposition using databases
 
-### htd
-
-[htd on github](https://github.com/TU-Wien-DBAI/htd/)
-
-Branch `normalize_cli` is required by dpdb (currently not included in htd's master)
+## Installation
 
 ### Database
-[PostgreSQL](https://www.postgresql.org)
 
+[Postgresql](https://www.postgresql.org/)
+
+### htd 
+
+[htd Github](https://github.com/TU-Wien-DBAI/htd/tree/normalize_cli)
+
+### clingo
+
+```bash
+pip install clingo
+```
 ### Python
 * Python 3
 * psycopg2
-* future-fstrings (for compatibility with older versions)
-```
-pip install -r requirements.txt
+* future-fstrings
+
+```bash
+pip install psycopg2
+pip install future-fstrings
+
 ```
 
 ## Configuration
@@ -25,33 +33,9 @@ Basic configuration (database connection, htd path, ...) are configured in **con
 
 ## Usage
 
+```python
+python3 decomposer.py ./test_program.lp
 ```
-python dpdb.py [GENERAL-OPTIONS] -f <INPUT-FILE> <PROBLEM> [PROBLEM-SPECIFIC-OPTIONS]
-```
 
-### Currently implemented problems
-* SAT 
-* #SAT
-* Minimum Vertex Cover
 
-For additional help use
-```
-python dpdb.py --help
-```
-or 
-```
-python dpdb.py <PROBLEM> --help
-```
-for problem specific help/options
 
-## TODO / Future Work
-
-### Indexing
-
-Currently no indices are created. It is an open problem to investigate whether good indices can be determined just by the structure of the problem.
-
-Oracle's Bitmap Indices also seem worth a try (Oracle Enterprise Feature)
-
-### Resume / Re-run
-
-Re-construct input from database to be able to run the same instance again (without needing a seed for htd) or to resume previously unfinished jobs.

@@ -15,6 +15,7 @@ class Reader(object):
 
     @classmethod
     def from_string(cls, string):
+
         instance = cls()
         instance.parse(string)
         return instance
@@ -42,6 +43,7 @@ class DimacsReader(Reader):
 
     def preamble(self,lines):
         for lineno, line in enumerate(lines):
+
             if line.startswith("p ") or line.startswith("s "):
                 line = line.split()
                 self.problem_solution_type = line[0]

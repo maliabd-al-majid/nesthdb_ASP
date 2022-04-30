@@ -14,7 +14,18 @@ class Writer(object):
         for e in edges:
             self.writeline("{0} {1}".format(e[0],e[1]))
         self.flush()
+    def write_graph(self,graph,dimacs):
+        gr_string = 'edge' if dimacs else 'htw'
+        s = 'p ' if dimacs else ''
 
+        self.write('p %s %s %s\n' % (gr_string, graph.number_of_nodes(), graph.number_of_edges()))
+        print(('p %s %s %s\n' % (gr_string, graph.number_of_nodes(), graph.number_of_edges())))
+        s = 'e ' if dimacs else ''
+        for e_id, nodes in zip(range(graph.number_of_edges()), graph.edges_iter()):
+            nodes = ' '.join(map(str, nodes))
+            self.write('%s%s %s\n' % (s, e_id + 1, nodes))
+            print('%s%s %s\n' % (s, e_id + 1, nodes))
+        self.flush()
     def write_td(self, num_bags, tree_width, num_orig_vertices, root, bags, edges):
         self.writeline("s td {0} {1} {2}".format(num_bags, tree_width + 1, num_orig_vertices))
         self.writeline("c r {0}".format(root))
